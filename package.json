@@ -3,6 +3,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@hapi/hapi": "^20.2.2"
+    "@hapi/hapi": "^20.2.2",
+    "mongodb": "^4.10.0"
   }
 }
