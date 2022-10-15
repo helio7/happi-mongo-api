@@ -1,6 +1,7 @@
-const Hapi = require('@hapi/hapi');
-const { MongoClient, ServerApiVersion } = require('mongodb');
-require('dotenv').config();
+import Hapi from '@hapi/hapi';
+import { MongoClient, ServerApiVersion } from 'mongodb';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const init = async () => {
    const {
