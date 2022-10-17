@@ -57,6 +57,9 @@ const init = async () => {
             'EUR/ARS': ARS,
             'EUR/BRL': BRL,
             'EUR/USD': USD,
+            'USD/ARS': ARS / USD, // Regla de tres.
+            'USD/BRL': BRL / USD,
+            'BRL/ARS': ARS / BRL,
          };
 
          console.log('AAAAAAAAAAAA');
