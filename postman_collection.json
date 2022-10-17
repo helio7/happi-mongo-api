@@ -1,0 +1,35 @@
+{
+	"info": {
+		"_postman_id": "927a49a8-27c5-43b6-9845-9ca2b2e1142c",
+		"name": "Dylan Settle Challenge API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get rates with mark-up fee applied",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://f960-2803-9800-98c6-8842-54eb-d656-c223-5656.ngrok.io/rates-with-mark-up-fee-applied?feePercent=3",
+					"protocol": "https",
+					"host": [
+						"f960-2803-9800-98c6-8842-54eb-d656-c223-5656",
+						"ngrok",
+						"io"
+					],
+					"path": [
+						"rates-with-mark-up-fee-applied"
+					],
+					"query": [
+						{
+							"key": "feePercent",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
