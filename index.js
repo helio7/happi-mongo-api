@@ -53,18 +53,28 @@ const init = async () => {
          )
             .then(res => res.json());
 
-         const rates = {
-            'EUR/ARS': ARS,
-            'EUR/BRL': BRL,
-            'EUR/USD': USD,
-            'USD/ARS': ARS / USD, // Regla de tres.
-            'USD/BRL': BRL / USD,
-            'BRL/ARS': ARS / BRL,
+         const fxRates = {
+            'EUR/ARS': { originalRate: ARS },
+            'EUR/BRL': { originalRate: BRL },
+            'EUR/USD': { originalRate: USD },
+            'USD/ARS': { originalRate: ARS / USD },
+            'USD/BRL': { originalRate: BRL / USD },
+            'BRL/ARS': { originalRate: ARS / BRL },
          };
 
-         console.log('AAAAAAAAAAAA');
-         console.log(rates);
-         return rates;
+         const fee = Number(request.query.feePercent) / 100;
+
+         for (const pair in fxRates) {
+            if (Object.prototype.hasOwnProperty.call(fxRates, pair)) {
+               const { originalRate } = fxRates[pair];
+               fxRates[pair].feePercent = fee * 100;
+               const marketRateWithFeeApplied = calculateMarketRateWithFee(originalRate, fee);
+               fxRates[pair].rateWithMarkupFeeApplied = marketRateWithFeeApplied;
+               fxRates[pair].feeAmount = marketRateWithFeeApplied - originalRate;
+            }
+         }
+
+         return fxRates;
       },
    })
 
@@ -78,3 +88,7 @@ process.on('unhandledRejection', (err) => {
 });
 
 init();
+
+function calculateMarketRateWithFee(rate, fee) {
+   return rate * (fee + 1);
+}
