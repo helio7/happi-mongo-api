@@ -1,6 +1,8 @@
 import Hapi from '@hapi/hapi';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import dotenv from 'dotenv';
+import { nanoid } from 'nanoid';
+
 dotenv.config();
 
 const init = async () => {
@@ -21,6 +23,8 @@ const init = async () => {
          console.log(err);
       });
 
+   const collection = client.db('initial_test_db').collection('initial_test_collection');
+
    const server = Hapi.server({
       port: 3000,
       host: 'localhost',
@@ -29,7 +33,10 @@ const init = async () => {
    server.route({
       method: 'GET',
       path: '/',
-      handler: (request, h) => {
+      handler: async (request, h) => {
+         await collection.insertOne({
+            uuid: nanoid(),
+         });
          return 'Hello world!';
       },
    });
