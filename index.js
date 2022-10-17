@@ -48,14 +48,20 @@ const init = async () => {
       method: 'GET',
       path: '/rate-with-mark-up-fee',
       handler: async (request, h) => {
-         const result = await fetch(
+         const { rates: { ARS, BRL, USD } } = await fetch(
             `${FIXER_API_BASE_URL}/latest?access_key=${FIXER_API_ACCESS_KEY}&symbols=ARS,BRL,USD`,
          )
             .then(res => res.json());
 
+         const rates = {
+            'EUR/ARS': ARS,
+            'EUR/BRL': BRL,
+            'EUR/USD': USD,
+         };
+
          console.log('AAAAAAAAAAAA');
-         console.log(await result);
-         return 1;
+         console.log(rates);
+         return rates;
       },
    })
 
