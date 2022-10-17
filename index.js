@@ -2,6 +2,7 @@ import Hapi from '@hapi/hapi';
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import dotenv from 'dotenv';
 import { nanoid } from 'nanoid';
+import fetch from 'node-fetch';
 
 dotenv.config();
 
@@ -10,6 +11,8 @@ const init = async () => {
       MONGODB_USERNAME,
       MONGODB_PASSWORD,
       MONGODB_CLUSTER_HOST,
+      FIXER_API_BASE_URL,
+      FIXER_API_ACCESS_KEY,
    } = process.env;
 
    const client = new MongoClient(
@@ -40,6 +43,19 @@ const init = async () => {
          return 'Hello world!';
       },
    });
+
+   server.route({
+      method: 'GET',
+      path: '/rate-with-mark-up-fee',
+      handler: async (request, h) => {
+         const result = await fetch(
+            `${FIXER_API_BASE_URL}/latest?access_key=${FIXER_API_ACCESS_KEY}&symbols=ARS,BRL,EUR,USD`,
+         );
+         console.log('AAAAAAAAAAAA');
+         console.log(await result.json());
+         return 1;
+      },
+   })
 
    await server.start();
    console.log('Server running on %s', server.info.uri);
