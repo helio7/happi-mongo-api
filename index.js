@@ -46,7 +46,7 @@ const init = async () => {
 
    server.route({
       method: 'GET',
-      path: '/rate-with-mark-up-fee',
+      path: '/rates-with-mark-up-fee-applied',
       handler: async (request, h) => {
          const { rates: { ARS, BRL, USD } } = await fetch(
             `${FIXER_API_BASE_URL}/latest?access_key=${FIXER_API_ACCESS_KEY}&symbols=ARS,BRL,USD`,
